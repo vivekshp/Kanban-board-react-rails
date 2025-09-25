@@ -9,14 +9,14 @@ class AuthenticationController < ApplicationController
      tenant_name = extract_tenant_name(params[:email])
      tenant = Tenant.find_by(name: tenant_name)
      unless tenant
-       return render json: { errors: ["Tenant '#{tenant_name}' not found. Contact admin."] }, status: :unprocessable_entity
+       return render json: { errors: ["Tenant '#{tenant_name}' not found. Contact admin."] }, status: :unprocessable_content
      end
 
      user = nil
      Apartment::Tenant.switch(tenant.db_name) do
       user = User.new(user_params)
       unless user.save
-        return render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
+        return render json: { errors: user.errors.full_messages }, status: :unprocessable_content
       end
      end
          
@@ -71,10 +71,12 @@ class AuthenticationController < ApplicationController
       cookies[:jwt] = {
         value: token,
         httponly: true,
-        secure: true,
-        same_site: :none,
+        secure: false,           
+        same_site: :lax,        
+        domain: :all,    
         expires: 24.hours.from_now
       }
+       Rails.logger.info ">>> JWT Cookie set: #{cookies[:jwt].inspect}"
     end
     
     def delete_jwt_cookie

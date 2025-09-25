@@ -43,7 +43,7 @@ RSpec.describe "BoardMembers", type: :request do
            params: { board_member: { user_id: nil, role: "member" } },
            as: :json
 
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
     end
   end
 

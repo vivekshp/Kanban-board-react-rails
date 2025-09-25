@@ -13,8 +13,8 @@ class BoardMembersController < ApplicationController
     def create
       authorize @board, :invite?
       user = User.find_by(id: invite_params[:user_id])
-      return render_error(['User not found'],status: :unprocessable_entity) unless user
-      return render_error(['Owner is already on the board'], status: :unprocessable_entity) if @board.owner?(user)
+      return render_error(['User not found'],status: :unprocessable_content) unless user
+      return render_error(['Owner is already on the board'], status: :unprocessable_content) if @board.owner?(user)
   
       bm = @board.board_members.find_or_initialize_by(user_id: user.id)
       bm.role = invite_params[:role].presence_in(BoardMember.roles.keys) || 'member'
@@ -22,7 +22,7 @@ class BoardMembersController < ApplicationController
       if bm.save
         render_success(bm.as_json(include: { user: { only: [:id, :name, :email] } }), status: :created)
       else
-        render_error(bm.errors.full_messages, status: :unprocessable_entity)
+        render_error(bm.errors.full_messages, status: :unprocessable_content)
       end
     end
   
@@ -38,7 +38,7 @@ class BoardMembersController < ApplicationController
       if @member.changed? && @member.save
         render_success(@member.as_json(include: { user: { only: [:id, :name, :email] } }))
       else
-        render_error(@member.errors.full_messages, status: :unprocessable_entity)
+        render_error(@member.errors.full_messages, status: :unprocessable_content)
       end
     end
   

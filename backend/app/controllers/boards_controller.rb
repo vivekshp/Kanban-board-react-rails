@@ -37,7 +37,7 @@ class BoardsController < ApplicationController
         if @board.destroy
           render_success(nil, status: :no_content)
         else
-          render_error(@board.errors.full_messages, status: :unprocessable_entity)
+          render_error(@board.errors.full_messages, status: :unprocessable_content)
         end
       end
   
