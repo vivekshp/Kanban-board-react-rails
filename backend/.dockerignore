@@ -3,6 +3,7 @@
 # Ignore git directory.
 /.git/
 /.gitignore
+/node_modules
 
 # Ignore bundler config.
 /.bundle

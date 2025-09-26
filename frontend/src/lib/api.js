@@ -132,4 +132,4 @@ export const getAssignees = (params = {}) => {
 
 // histories
 export const getHistories = (params = {}) =>
-  api.get('/histories', { params }).then(r => r.data);
+  api.get('/api/history/histories', { params }).then(r => r.data);

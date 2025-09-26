@@ -57,11 +57,14 @@ export default function GlobalSearch() {
     }
   };
 
-  useEffect(() => {
-  if (query.trim()) {
-    handleSearch(query);
+ useEffect(() => {
+  if (!query.trim()) {
+    setResults([]);
+    return;
   }
-}, [selectedBoards, selectedAssignees, dateAfter]);
+  handleSearch(query);
+}, [query, selectedBoards, selectedAssignees, dateAfter]);
+
 
   return (
     <Box sx={{ maxWidth: 960, margin: '0 auto', position: 'relative' }}>

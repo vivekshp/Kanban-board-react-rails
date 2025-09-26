@@ -33,6 +33,41 @@ services:
     environment:
       REDIS_URL: redis://redis:6379/0
       BINDING: 0.0.0.0
+
+
+  core_service:
+    build: ./core_service
+    volumes:
+      - ./core_service:/app
+      - gem_cache:/usr/local/bundle
+    depends_on:
+      - db
+      - redis
+    environment:
+      REDIS_URL: redis://redis:6379/0
+      RAILS_ENV: development
+    ports:
+      - "3001:3001"
+    stdin_open: true
+    tty: true
+
+  history_service:
+    build: ./history_service
+    volumes:
+      - ./history_service:/app
+      - gem_cache:/usr/local/bundle
+    depends_on:
+      - db
+      - redis
+    environment:
+      REDIS_URL: redis://redis:6379/0
+      RAILS_ENV: development
+    ports:
+      - "3002:3002"
+    stdin_open: true
+    tty: true
+
+
   frontend:
     image: node:20
     working_dir: /app

@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   delete 'auth/logout', to: 'authentication#logout'
   get 'auth/me', to: 'authentication#me'
 
+  match "api/*path", to: "proxy#forward", via: :all
   resources :boards, only: [:index, :show, :create, :update, :destroy] do
     resources :members, controller: 'board_members', only: [:index, :create, :update, :destroy]
     resources :lists, only: [:index, :show, :create, :update, :destroy] do
