@@ -11,11 +11,27 @@ import Boards from './pages/boards/Boards';
 import BoardShow from './pages/boards/BoardShow';
 import Invites from './pages/invites/Invites';
 import History from './pages/history/History';
+import HistoryContainer from './HistoryContainer';
 import './index.css'
+import { registerApplication, start, navigateToUrl } from "single-spa";
+import { useEffect } from 'react';
 
 
 
 export default function App() {
+
+   useEffect(() => {
+  registerApplication({
+    name: "@pramata/history-ui",
+    app: () => System.import("@pramata/history-ui"),
+    activeWhen: "/history",
+    customProps: {},
+  });
+
+  start();
+}, []);
+
+
   return (
     <AuthProvider>
       <BrowserRouter>
@@ -31,7 +47,7 @@ export default function App() {
               </BoardProvider>
             } />
              <Route path="/invites" element={<Invites />} />
-             <Route path="/history" element={<History />} />
+             <Route path="/history" element={<HistoryContainer />} />
           </Route>
           <Route path="*" element={<AppLayout><Login /></AppLayout>} />
         </Routes>

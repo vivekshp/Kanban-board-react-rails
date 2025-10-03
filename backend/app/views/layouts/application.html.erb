@@ -7,18 +7,28 @@
     <%= csp_meta_tag %>
     
     <%= stylesheet_pack_tag 'application', 'data-turbo-track': 'reload' %>
+    <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/system.min.js"></script>
 
     <%= javascript_pack_tag 'application', 'data-turbo-track': 'reload' %>
+    
+    <script type="systemjs-importmap">
+      {
+        "imports": {
+          "react": "https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.development.js",
+    "react-dom": "https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.development.js",
+          "@pramata/history-ui": "http://localhost:8500/pramata-history-ui.js"
+        }
+      }
+  </script>
+  
   </head>
 
-  <body>
   
-    
-    <!-- Pass initial data to React -->
-    <script>
-      
-    </script>
-    
+  <body>
     <%= yield %>
+    <div id="pramata-history-ui"></div>
+    <!-- Pass initial data to React -->
+ 
+    
   </body>
 </html>

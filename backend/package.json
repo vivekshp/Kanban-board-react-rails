@@ -17,6 +17,8 @@
     "react-router-dom": "^6.26.1",
     "react_ujs": "^3.2.1",
     "shakapacker": "^7.2.0",
+    "single-spa": "^6.0.3",
+    "systemjs": "^6.15.1",
     "webpack": "^5.94.0",
     "webpack-assets-manifest": "^5.1.0",
     "webpack-cli": "^5.1.4",
